@@ -4,16 +4,13 @@
 struct Task {
     Task();
 
-    Task(int task_id, int phase, int period, int relative_deadline,
-         int execution_time);
+    Task(int task_id, int period, int execution_time);
 
     int task_id;
-    int phase;
     int period;
-    int relative_deadline;
     int execution_time;
 
     double utilization() const;
 
-    std::string ToString() const;
+    std::string to_string() const;
 };
