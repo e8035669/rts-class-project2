@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "AperiodicTasks.h"
 #include "AperiodicJob.h"
+#include "AperiodicTasks.h"
 #include "Job.h"
 #include "Task.h"
 
@@ -17,6 +17,8 @@ class Simulator {
 
     std::vector<Job> periodic_jobs_;
     std::vector<AperiodicJob> aperiodic_jobs_;
+    double server_size_;
+    int cus_deadline_;
 
     int total_response_time_;
     int finished_ajob_number_;
@@ -28,6 +30,8 @@ class Simulator {
 
     void set_max_clock(int max_clock) { max_clock_ = max_clock; }
 
+    void set_server_size(double server_size) { server_size_ = server_size; }
+
     void assign_ptasks(const std::vector<Task>& periodic_tasks);
 
     void assign_atasks(const AperiodicTasks& aperiodic_tasks);
@@ -38,7 +42,7 @@ class Simulator {
 
     void add_periodic_job();
 
+    void add_aperiodic_job();
 
-
-
+    void doing_job();
 };

@@ -29,11 +29,11 @@ void AperiodicTasks::load_from_file(const std::string& filename) {
     }
 }
 
-std::vector<AperiodicTask> AperiodicTasks::getAperiodicTask(int phase) {
-    std::vector<AperiodicTask> ret;
+std::vector<AperiodicTask*> AperiodicTasks::getAperiodicTask(int phase) {
+    std::vector<AperiodicTask*> ret;
     auto range = tasks_.equal_range(phase);
     for (auto it = range.first; it != range.second; ++it) {
-        ret.push_back(it->second);
+        ret.push_back(&it->second);
     }
     return ret;
 }

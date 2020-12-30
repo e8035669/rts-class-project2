@@ -12,7 +12,7 @@ struct AperiodicTasks {
 
     void load_from_file(const std::string& filename);
 
-    std::vector<AperiodicTask> getAperiodicTask(int phase);
+    std::vector<AperiodicTask*> getAperiodicTask(int phase);
 
     std::multimap<int, AperiodicTask> tasks_;
 };
