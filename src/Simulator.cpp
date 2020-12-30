@@ -103,8 +103,8 @@ void Simulator::add_aperiodic_job() {
                         cus_deadline_ = (int)round(
                             clock_ + atask->execution_time / server_size_);
                         budget_ = atask->execution_time;
-                        cout << "CUS DL: " << cus_deadline_
-                             << ", budget: " << budget_ << endl;
+                        // cout << "CUS DL: " << cus_deadline_
+                        //      << ", budget: " << budget_ << endl;
                     }
 
                 } else {
@@ -112,8 +112,8 @@ void Simulator::add_aperiodic_job() {
                         (int)round(max(clock_, cus_deadline_) +
                                    atask->execution_time / server_size_);
                     budget_ = atask->execution_time;
-                    cout << "TBS DL: " << cus_deadline_
-                         << ", budget: " << budget_ << endl;
+                    // cout << "TBS DL: " << cus_deadline_
+                    //      << ", budget: " << budget_ << endl;
                 }
             }
             aperiodic_jobs_.push_back(job);
@@ -127,8 +127,8 @@ void Simulator::add_aperiodic_job() {
                 clock_ + aperiodic_jobs_.front().parent_task.execution_time /
                              server_size_);
             budget_ = aperiodic_jobs_.front().parent_task.execution_time;
-            cout << "CUS DL: " << cus_deadline_ << ", budget: " << budget_
-                 << endl;
+            // cout << "CUS DL: " << cus_deadline_ << ", budget: " << budget_
+            //      << endl;
         }
     } else {
         if (budget_ == 0 && aperiodic_jobs_.size() > 0) {
@@ -137,8 +137,8 @@ void Simulator::add_aperiodic_job() {
                            (aperiodic_jobs_.front().parent_task.execution_time /
                             server_size_));
             budget_ = aperiodic_jobs_.front().remain_execution_time;
-            cout << "TBS DL: " << cus_deadline_ << ", budget: " << budget_
-                 << endl;
+            // cout << "TBS DL: " << cus_deadline_ << ", budget: " << budget_
+            //      << endl;
         }
     }
 }
@@ -180,29 +180,6 @@ void Simulator::clean_aperiodic_job() {
             (clock_ - aperiodic_jobs_.front().parent_task.phase);
         aperiodic_jobs_.erase(aperiodic_jobs_.begin());
     }
-
-    /*
-    if (aperiodic_server_mode_ == CUS) {
-        if (clock_ >= cus_deadline_ && aperiodic_jobs_.size() > 0) {
-            cus_deadline_ = (int)round(
-                clock_ + (aperiodic_jobs_.front().parent_task.execution_time /
-                          server_size_));
-            budget_ = aperiodic_jobs_.front().remain_execution_time;
-            cout << "CUS DL: " << cus_deadline_ << ", budget: " << budget_
-                 << endl;
-        }
-    } else {
-        if (budget_ == 0 && aperiodic_jobs_.size() > 0) {
-            cus_deadline_ =
-                (int)round(cus_deadline_ +
-                           (aperiodic_jobs_.front().parent_task.execution_time /
-                            server_size_));
-            budget_ = aperiodic_jobs_.front().remain_execution_time;
-            cout << "TBS DL: " << cus_deadline_ << ", budget: " << budget_
-                 << endl;
-        }
-    }
-    */
 }
 
 void Simulator::print_statistics() {
