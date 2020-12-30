@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include <unordered_map>
+#include <map>
 #include <utility>
 #include <vector>
 
@@ -14,5 +14,5 @@ struct AperiodicTasks {
 
     std::vector<AperiodicTask> getAperiodicTask(int phase);
 
-    std::unordered_multimap<int, AperiodicTask> tasks_;
+    std::multimap<int, AperiodicTask> tasks_;
 };
