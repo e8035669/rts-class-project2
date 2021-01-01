@@ -37,12 +37,12 @@ void Simulator::assign_atasks(const AperiodicTasks& aperiodic_tasks) {
 
 bool Simulator::run_once() {
     if (clock_ < max_clock_) {
-        remove_miss_job();
-        add_periodic_job();
-        add_aperiodic_job();
-        doing_job();
-        clean_periodic_job();
-        clean_aperiodic_job();
+        remove_miss_job();      // 移除過期的週期性任務
+        add_periodic_job();     // 加入新的週期性任務
+        add_aperiodic_job();    // 加入新的非週期性任務
+        doing_job();            // 執行一件優先權最高的工作
+        clean_periodic_job();   // 清除完成的週期性任務
+        clean_aperiodic_job();  // 清除完成的非週期性任務
 
         //
         clock_++;
@@ -78,6 +78,7 @@ void Simulator::add_periodic_job() {
                 .parent_task = task,
             };
 
+            // 在佇列中找到正確位置插入任務，以優先權高低排序
             auto it = find_if(
                 periodic_jobs_.begin(), periodic_jobs_.end(), [&job](Job& j) {
                     return job.absolute_deadline < j.absolute_deadline;
@@ -121,6 +122,7 @@ void Simulator::add_aperiodic_job() {
     }
 
     if (aperiodic_server_mode_ == Mode::CUS) {
+        // CUS會在期限到的時候，而且佇列中還有非週期性任務的時候，重新設定新的期限
         if (budget_ == 0 && clock_ >= cus_deadline_ &&
             aperiodic_jobs_.size() > 0) {
             cus_deadline_ = (int)round(
@@ -131,6 +133,7 @@ void Simulator::add_aperiodic_job() {
             //      << endl;
         }
     } else {
+        // TBS會在非週期性任務完成時，馬上更新期限
         if (budget_ == 0 && aperiodic_jobs_.size() > 0) {
             cus_deadline_ =
                 (int)round(cus_deadline_ +
@@ -149,6 +152,7 @@ void Simulator::doing_job() {
         pjob_deadline = periodic_jobs_.front().absolute_deadline;
     }
 
+    // 挑選優先權最高的週期性任務或非週期性任務來執行
     if (pjob_deadline != numeric_limits<int>::max() &&
         (pjob_deadline <= cus_deadline_ || budget_ == 0)) {
         periodic_jobs_.front().remain_execution_time--;

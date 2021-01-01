@@ -4,7 +4,7 @@ set(PROJECT_NAME rts-class-project2)
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation directory")
 
 project(${PROJECT_NAME} C CXX)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 #set(CMAKE_CXX_FLAGS)
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 

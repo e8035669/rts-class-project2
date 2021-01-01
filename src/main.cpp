@@ -27,10 +27,9 @@ bool parse_args(Parameter& param, int argc, char** argv) {
         (value("periodic task", param.task_file).doc("periodic task file."),
          value("aperiodic task", param.aperiodic_task_file)
              .doc("aperiodic task file"),
-         (option("-c", "--max_clock") & value("max_clock", param.max_clock))
+         (option("-c", "--max_clock") & value("N", param.max_clock))
              .doc("specify max clock (default: 1000)"),
-         (option("-s", "--server_size") &
-          value("server_size", param.server_size))
+         (option("-s", "--server_size") & value("N", param.server_size))
              .doc("set server size (default: 0.2)"),
          (option("-m", "--mode") &
           (command("CUS").set(param.mode, Simulator::Mode::CUS) |
